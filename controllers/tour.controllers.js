@@ -1,3 +1,4 @@
+const { tourPackage } = require("../models/tour.model");
 const {
   inserttourService,
   getAlltourService,
@@ -58,6 +59,25 @@ exports.updateTour = async (req, res, next) => {
     const { id } = req.params;
 
     const result = await updateTourService(id, req.body);
+    res.status(200).json({ data: result });
+  } catch (error) {
+    res.status(400).json({ status: 400, message: error.message });
+  }
+};
+
+exports.trendingTourPackage = async (req, res, next) => {
+  try {
+    const result = await tourPackage.find({}).sort({ viewCount: -1 }).limit(3);
+
+    res.status(200).json({ data: result });
+  } catch (error) {
+    res.status(400).json({ status: 400, message: error.message });
+  }
+};
+exports.getCheapestPackage = async (req, res, next) => {
+  try {
+    const result = await tourPackage.find({}).sort({ viewCount: 1 }).limit(1);
+
     res.status(200).json({ data: result });
   } catch (error) {
     res.status(400).json({ status: 400, message: error.message });

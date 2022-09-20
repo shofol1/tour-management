@@ -21,7 +21,11 @@ exports.inserttourService = async (newTour) => {
 //singleTour details
 
 exports.singleTourDetailsService = async (id) => {
-  const result = await tourPackage.find({ _id: id });
+  const result = await tourPackage.findOneAndUpdate(
+    { _id: id },
+    { $inc: { viewCount: 1 } }
+  );
+  console.log(result);
   return result;
 };
 exports.updateTourService = async (id, data) => {

@@ -48,6 +48,10 @@ const tourSchema = mongoose.Schema({
       message: "Can't be {VALUE}",
     },
   },
+  viewCount: {
+    type: Number,
+    min: 0,
+  },
 });
 
 const tourPackage = mongoose.model("TourMangement", tourSchema);
